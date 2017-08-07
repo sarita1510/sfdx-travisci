@@ -12,7 +12,7 @@ before_install:
 before_script:
   - export SFDX_DISABLE_ENCRYPTION=true
   - sfdx force --help
-  - sfdx force:auth:jwt:grant --clientid 3MVG9d8..z.hDcPJ6Pc2fjW6QkkWWo1JJjq36o1n5qci_d5WHYW69vqx2eUvwQFXjJ9U0.uoldPsLkhcYL52k --jwtkeyfile assets/server.key --username sarita71@intelepeer.com.devhub --setdefaultdevhubusername -a HubOrg
+  - sfdx force:auth:jwt:grant --clientid sfdx force:auth:jwt:grant --clientid  4f0eea4e2659ecbb3ec3bb00e37be1565774be40 --jwtkeyfile assets/server.key --username sarita71@intelepeer.com.devhub --setdefaultdevhubusername -a HubOrg --jwtkeyfile assets/server.key --username sarita71@intelepeer.com.devhub --setdefaultdevhubusername -a HubOrg
 
 
 script:
