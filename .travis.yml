@@ -1,23 +1,21 @@
 sudo: true
-dist: trusty 
-cache: false
 
 env:
-- URL=https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz
+  - URL=https://developer.salesforce.com/media/salesforce-cli/sfdx-v5.6.22-f9533ba-linux-amd64.tar.xz
 
 before_install:
-# delete the following line before encrypting your server.key
-- export SFDX_AUTOUPDATE_DISABLE=true
-- export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
-- export SFDX_DOMAIN_RETRY=300
-- wget -qO- $URL | tar xJf -
-- "./sfdx/install"
-- export PATH=./sfdx/$(pwd):$PATH
-- sfdx update
-- sfdx force:auth:jwt:grant --clientid 3MVG9d8..z.hDcPJ6Pc2fjW6QkkWWo1JJjq36o1n5qci_d5WHYW69vqx2eUvwQFXjJ9U0.uoldPsLkhcYL52k --jwtkeyfile assets/server.key --username sarita71@intelepeer.com.devhub --setdefaultdevhubusername -a HubOrg
+  - wget -qO- $URL | tar xJf -
+  - ./heroku/install
+  - export PATH=./heroku/$(pwd):$PATH
+
+before_script:
+  - export SFDX_DISABLE_ENCRYPTION=true
+  - sfdx force --help
+  - sfdx force:auth:jwt:grant --clientid 3MVG9d8..z.hDcPJ6Pc2fjW6QkkWWo1JJjq36o1n5qci_d5WHYW69vqx2eUvwQFXjJ9U0.uoldPsLkhcYL52k --jwtkeyfile assets/server.key --username sarita71@intelepeer.com.devhub --setdefaultdevhubusername
 
 script:
-- sfdx force:org:create -v HubOrg -s -f config/project-scratch-def.json -a ciorg
-- sfdx force:source:push -u ciorg
-- sfdx force:apex:test:run -u ciorg -c -r human
-- sfdx force:org:delete -u ciorg -p
+  - sfdx force:org:create -s -f config/workspace-scratch-def.json -a travisciorg
+  - sfdx force:source:push -u travisciorg
+  - sfdx force:apex:test:run -r tap
+  - sleep 4m
+  - sfdx force:org:delete -u travisciorg -p
