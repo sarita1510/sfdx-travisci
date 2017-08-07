@@ -8,5 +8,6 @@ public with sharing class myclass {
 		
 		
 		system.debug('test1');
+		system.debug('test2');
 	}
 }
