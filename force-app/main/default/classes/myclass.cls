@@ -10,5 +10,6 @@ public with sharing class myclass {
 		system.debug('test1');
 		system.debug('test2');
 		system.debug('test3');
+		system.debug('test4');
 	}
 }
